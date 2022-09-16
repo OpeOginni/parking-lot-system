@@ -1,0 +1,69 @@
+body {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: #171d1c;
+}
+h2 {
+  color: #efe9f4;
+
+  text-align: center;
+}
+h3 {
+  color: #efe9f4;
+
+  text-align: center;
+}
+
+.booking_container {
+  width: 100%;
+  height: 50em;
+}
+
+.keys_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bookingkeys {
+  display: flex;
+  width: 28em;
+  height: 20em;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: #171d1c;
+}
+.unBooked {
+  color: hsl(0, 0%, 100%);
+  align-items: center;
+  border-radius: 70%;
+  border: ;
+  background-color: hsl(212, 17%, 21%);
+  height: 40px;
+  width: 40px;
+  margin: 10% 7% 10% 1%;
+  display: inline;
+  position: relative;
+  left: 25%;
+}
+
+.booked {
+  color: hsl(0, 0%, 100%);
+  align-items: center;
+  border-radius: 70%;
+  border: ;
+  background-color: #5863f8;
+  height: 40px;
+  width: 40px;
+  margin: 10% 7% 10% 1%;
+  display: inline;
+  position: relative;
+  left: 25%;
+}
+
+.unpressed {
+  background-color: hsl(212, 17%, 21%);
+  color: hsl(0, 0%, 100%);
+}
