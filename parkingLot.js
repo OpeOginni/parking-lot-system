@@ -1,5 +1,4 @@
 let bookButton = Array.from(document.querySelectorAll("button"));
-//const booking_container = document.querySelector("booking_container");
 const body = document.getElementById("body");
 const A1 = document.getElementById("A1");
 const A2 = document.getElementById("A2");
@@ -29,8 +28,6 @@ let priceToPay = 0.0;
 let carRegNumber;
 let userName;
 let carSize;
-
-const minute = 1000 * 60;
 
 function myFunction() {
   var Intro_Page = document.querySelector(".Intro_Page");
