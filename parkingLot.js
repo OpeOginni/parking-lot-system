@@ -54,6 +54,7 @@ function myFunction() {
    Your Car Registration Number is: ${carRegNumber}`;
 }
 
+// BY OPEYEMI
 let startTime;
 let endTime;
 let priceForSmall = 2;
@@ -103,6 +104,8 @@ bookButton.map((bookButton) => {
           alert(`Thank You for Booking Space ${e.target.innerText}`);
         }
         break;
+      // BY OPEYEMI
+
       case "A3":
         if (A3.className != "unBooked") {
           const _end = Date.now();
