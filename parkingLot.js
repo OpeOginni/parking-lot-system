@@ -1,5 +1,4 @@
-if (!localStorage.bookings) localStorage.bookings = JSON.stringify([]);
-const bookings = JSON.parse(localStorage.bookings);
+if (!localStorage.bookings) localStorage.bookings = JSON.stringify();
 let bookButton = Array.from(document.querySelectorAll("button"));
 const body = document.getElementById("body");
 const A1 = document.getElementById("A1");
@@ -71,19 +70,19 @@ function myFunction() {
   formData.regNum = document.getElementById("regNumber").value;
   formData.slotBooked.push("No Booked Slot Yet");
 
-  const regExist = bookings.filter((slot) => slot.regNum === formData.regNum);
+  // const regExist = bookings.filter((slot) => slot.regNum === formData.regNum);
 
-  if (regExist.length > 0) {
-    alert(
-      `A car with the registration number ${formData.regNum} exists. We will Log You Into Your Dashboard`
-    );
-    return null;
-  } else {
-    alert(`New Profile Created!`);
-  }
+  // if (regExist.length > 0) {
+  //   alert(
+  //     `A car with the registration number ${formData.regNum} exists. We will Log You Into Your Dashboard`
+  //   );
+  //   return null;
+  // } else {
+  //   alert(`New Profile Created!`);
+  // }
 
-  bookings.push(formData);
-
+  // bookings.push(formData);
+  bookings[formData.regNum] = { slot: "No slot Booked" };
   localStorage.bookings = JSON.stringify(bookings);
 }
 
