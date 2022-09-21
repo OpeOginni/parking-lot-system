@@ -1,3 +1,5 @@
+if (!localStorage.bookings) localStorage.bookings = JSON.stringify([]);
+const bookings = JSON.parse(localStorage.bookings);
 let bookButton = Array.from(document.querySelectorAll("button"));
 const body = document.getElementById("body");
 const A1 = document.getElementById("A1");
@@ -20,14 +22,27 @@ const D2 = document.getElementById("D2");
 const D3 = document.getElementById("D3");
 const D4 = document.getElementById("D4");
 const D5 = document.getElementById("D5");
+const book = document.getElementsByClassName("book");
+const Specific_Info = document.getElementsByClassName("Specific_Info");
 const _numberOfBookedSlots = document.getElementById("BookedSlotsCounter");
 const Price_showcase = document.getElementById("Price_showcase");
 const Welcome = document.getElementById("Welcome");
+const bookedButtons = document.getElementsByClassName("booked");
 let numberOfBookedSlots = 0;
 let priceToPay = 0.0;
 let carRegNumber;
 let userName;
 let carSize;
+const formData = {
+  regNum: null,
+  slotBooked: [],
+  info: function () {
+    return this.regNum + " " + this.slotBooked;
+  },
+};
+// if ((formData.slotBooked = null)) {
+//   formData.slotBooked = "No Booked Slot";
+// }
 
 function myFunction() {
   var Intro_Page = document.querySelector(".Intro_Page");
@@ -52,8 +67,29 @@ function myFunction() {
   }
   Welcome.innerText = `Welcome, ${userName}
    Your Car Registration Number is: ${carRegNumber}`;
+
+  formData.regNum = document.getElementById("regNumber").value;
+  formData.slotBooked.push("No Booked Slot Yet");
+
+  const regExist = bookings.filter((slot) => slot.regNum === formData.regNum);
+
+  if (regExist.length > 0) {
+    alert(
+      `A car with the registration number ${formData.regNum} exists. We will Log You Into Your Dashboard`
+    );
+    return null;
+  } else {
+    alert(`New Profile Created!`);
+  }
+
+  bookings.push(formData);
+
+  localStorage.bookings = JSON.stringify(bookings);
 }
 
+function resetBookings() {
+  bookings.length = 0; // Clears the Local Storage
+}
 // BY OPEYEMI
 let startTime;
 let endTime;
@@ -69,7 +105,18 @@ bookButton.map((bookButton) => {
           endTime = _end;
           /* If the Space is Booked */ numberOfBookedSlots--;
           A1.className = "unBooked";
-          alert(`You have Unbooked ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
+
+          console.log(bookings.length);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -81,7 +128,16 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           A1.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
+
         break;
 
       case "A2":
@@ -90,7 +146,26 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           A2.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
+
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -102,6 +177,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           A2.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       // BY OPEYEMI
@@ -112,7 +195,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           A3.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -124,6 +216,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           A3.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "A4":
@@ -132,7 +232,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           A4.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -144,6 +253,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           A4.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "A5":
@@ -152,7 +269,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           A5.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -164,6 +290,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           A5.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       //ROW B1 - B5
@@ -173,7 +307,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           B1.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -185,6 +328,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           B1.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "B2":
@@ -193,7 +344,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           B2.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -205,6 +365,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           B2.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "B3":
@@ -213,7 +381,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           B3.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -225,6 +402,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           B3.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "B4":
@@ -233,7 +418,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           B4.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -245,6 +439,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           B4.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "B5":
@@ -253,7 +455,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           B5.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -265,6 +476,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           B5.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       // ROW C1 - C5
@@ -274,7 +493,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           C1.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -286,6 +514,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           C1.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "C2":
@@ -294,7 +530,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           C2.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -306,6 +551,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           C2.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "C3":
@@ -314,7 +567,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           C3.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -326,6 +588,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           C3.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "C4":
@@ -334,7 +604,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           C4.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -346,6 +625,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           C4.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "C5":
@@ -354,7 +641,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           C5.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -366,6 +662,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           C5.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       // ROW D1 - D5
@@ -375,7 +679,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           D1.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -387,6 +700,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           D1.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "D2":
@@ -395,7 +716,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           D2.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -407,6 +737,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           D2.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "D3":
@@ -415,7 +753,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           D3.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -427,6 +774,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           D3.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "D4":
@@ -435,7 +790,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           D4.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -447,6 +811,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           D4.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
       case "D5":
@@ -455,7 +827,16 @@ bookButton.map((bookButton) => {
           endTime = _end;
           numberOfBookedSlots--;
           D5.className = "unBooked";
-          alert(`You Have Unbooked Space ${e.target.innerText}`);
+          if (formData.slotBooked.length != 1) {
+            const index = formData.slotBooked.indexOf(e.target.innerText);
+            formData.slotBooked.splice(index, 1);
+          } else {
+            formData.slotBooked[0] = "No Booked Slot Yet";
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
+          alert(`You have Unbooked Space ${e.target.innerText}`);
           var totalTimeTaken = (endTime - startTime) / 60000;
           console.log(
             `Total time take was: ${(endTime - startTime) / 60000} Minutes`
@@ -467,6 +848,14 @@ bookButton.map((bookButton) => {
           numberOfBookedSlots++;
           D5.className = "booked";
           alert(`Thank You for Booking Space ${e.target.innerText}`);
+          if (formData.slotBooked[0] != "No Booked Slot Yet") {
+            formData.slotBooked.push(e.target.innerText);
+          } else {
+            formData.slotBooked[0] = e.target.innerText;
+          }
+          bookings.pop();
+          bookings.push(formData);
+          localStorage.bookings = JSON.stringify(bookings);
         }
         break;
     }
