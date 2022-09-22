@@ -118,8 +118,6 @@ h3 {
   color: #efe9f4;
   font-size: 30px;
   text-align: Center;
-  margin-left: 49%;
-  margin-right: 20;
 }
 
 .spacing {
@@ -139,4 +137,10 @@ h3 {
   align-items: center;
   justify-content: center;
   background-color: #171d1c;
+}
+
+.BackButton {
+  justify-content: center;
+  align-items: center;
+  background-color: #efe9f4;
 }
