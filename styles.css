@@ -40,11 +40,8 @@ h3 {
 .Info_Container {
   display: flex;
   width: 50em;
-
-  display: grid;
   align-items: center;
   justify-content: center;
-  grid-template-columns: repeat(1, 1fr);
   background-color: #171d1c;
 }
 
@@ -121,6 +118,29 @@ h3 {
   color: #efe9f4;
   font-size: 30px;
   text-align: Center;
-  margin-left: 49%;
-  margin-right: 20;
+}
+
+.spacing {
+  width: 100%;
+  height: 10px;
+}
+
+.largerSpacing {
+  width: 100%;
+  height: 100px;
+}
+
+.form {
+  display: flex;
+  width: 50em;
+
+  align-items: center;
+  justify-content: center;
+  background-color: #171d1c;
+}
+
+.BackButton {
+  justify-content: center;
+  align-items: center;
+  background-color: #efe9f4;
 }

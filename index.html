@@ -9,36 +9,61 @@
   <body id="body">
     <div class="Intro_Page">
       <h2>Welcome</h2>
-      <h3>Enter Your Credntials to Book a Parking space</h3>
+      <h3>Enter Your Credentials to Book a Parking space</h3>
       <div class="userInfo">
         <div class="Info_Container">
           <div class="Specific_Info">
-            <label for="regNumber">Car Registration Number:</label>
-            <input type="text" id="regNumber" name="regNumber" />
-          </div>
-          <div class="Specific_Info">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" />
-            <div>
-              <label for="carSize">Car Size:</label>
+            <label for="name">Full Name:</label> <br />
+            <input
+              type="text"
+              id="name"
+              placeholder="Ade Tomiwa"
+              required
+            />
 
-              <select name="carSize" id="carSize">
+            <div class="spacing"></div>
+
+            <div class="Specific_Info">
+              <label for="regNumber">Car Registration Number:</label> <br />
+              <input
+                type="text"
+                id="regNumber"
+                placeholder="RIV-2954-PHC"
+                required
+              />
+            </div>
+
+            <div class="spacing"></div>
+
+
+            <div>
+              <label for="carSize">Car Size:</label> <br />
+
+              <select n id="carSize" required>
                 <option value="small">Small</option>
                 <option value="large">Large</option>
               </select>
             </div>
+            <div class="spacing"></div>
             <div>
-              <button class="book" onclick="myFunction()"><h5>BOOK</h5></button>
+              <input type="submit" class="book" value="Book" onclick="myFunction()" onsubmit="" required>
+            </input>
             </div>
           </div>
-        </div>
+         </div>
       </div>
+      <div class="largerSpacing"></div>
+
+      <button id="rest_bookings" onclick="resetBookings()">Reset Local Booking Storage</button>
     </div>
+
     <div class="booking_container">
       <h2 id="Welcome">Welcome</h2>
       <h3>Click on a Free Slot to book for parking</h3>
       <h3 id="pricePerSpace"></h3>
-      <div id="BookedSlotsCounter">No Of Booked Parking Slots 0 out of 20</div>
+      <div id="BookedSlotsCounter">NO. Of Booked Parking Slots 0 out of 20</div>
+      <div class="spacing"></div>
+       <button id="BackButton" class="BackButton" onclick="backFunction()">Back to Registration</button>
 
       <div class="keys_container">
         <div class="bookingkeysSmall">
@@ -66,6 +91,7 @@
           <button id="D5" class="unBooked">D5</button>
         </div>
       </div>
+      <div class="largerSpacing"></div>
       <div class="Price_showcase" id="Price_showcase">Price To Pay:</div>
     </div>
     <script src="parkingLot.js"></script>
